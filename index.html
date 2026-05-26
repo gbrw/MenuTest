@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coffee Menu</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;background:#f6efe7;color:#24170f}
@@ -13,22 +16,29 @@ body{font-family:Arial,sans-serif;background:#f6efe7;color:#24170f}
 .logo{width:95px;height:95px;border-radius:50%;background:white;padding:10px;object-fit:contain;margin-bottom:14px}
 .hero h1{font-size:34px;margin-bottom:8px}
 .hero p{font-size:15px;opacity:.9}
+
 .search{padding:18px}
 .search input{width:100%;padding:15px 18px;border:0;border-radius:18px;font-size:16px;outline:0;box-shadow:0 8px 25px rgba(0,0,0,.08)}
-.categories{position:sticky;top:0;z-index:10;background:#f6efe7;display:flex;gap:10px;overflow-x:auto;padding:0 18px 18px}
-.categories button{border:0;background:white;color:#3b2618;padding:12px 18px;border-radius:999px;white-space:nowrap;font-weight:bold;cursor:pointer}
+
+.categories{position:sticky;top:0;z-index:10;background:#f6efe7;display:flex;gap:12px;overflow-x:auto;padding:0 18px 18px}
+.categories button{border:0;background:white;color:#3b2618;padding:12px 18px;border-radius:18px;white-space:nowrap;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:10px;box-shadow:0 5px 18px rgba(0,0,0,.06);transition:.2s}
+.categories button i{font-size:16px}
 .categories button.active{background:#3b2418;color:white}
+
 .menu-section{padding:10px 18px 24px;scroll-margin-top:80px}
 .section-title{font-size:23px;margin-bottom:14px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:16px}
-.card{background:white;border-radius:24px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,.08);cursor:pointer}
+.card{background:white;border-radius:24px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,.08);cursor:pointer;transition:.2s}
+.card:hover{transform:translateY(-3px)}
 .card img{width:100%;height:145px;object-fit:cover;background:#ddd}
 .card-body{padding:14px}
 .card h3{font-size:17px;margin-bottom:6px}
 .card p{font-size:13px;color:#6a5a4e;line-height:1.5;margin-bottom:10px}
 .price{font-weight:bold;color:#a66a2c}
+
 .hidden{display:none}
 .empty{text-align:center;padding:40px;color:#76675d}
+
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
 .modal.show{display:flex}
 .modal-box{background:white;width:100%;max-width:430px;border-radius:28px;padding:18px;position:relative}
@@ -37,19 +47,24 @@ body{font-family:Arial,sans-serif;background:#f6efe7;color:#24170f}
 .modal-box h2{font-size:24px;margin-bottom:8px}
 .modal-box p{color:#65564d;line-height:1.7;margin-bottom:12px}
 .modal-price{font-size:20px;font-weight:bold;color:#a66a2c}
+
 .whatsapp{position:fixed;bottom:18px;left:18px;background:#25d366;color:white;text-decoration:none;padding:13px 18px;border-radius:999px;font-weight:bold;box-shadow:0 8px 25px rgba(0,0,0,.2);z-index:30}
+
 @media(max-width:480px){
 .hero{height:255px}
 .hero h1{font-size:28px}
 .grid{grid-template-columns:repeat(2,1fr);gap:12px}
 .card img{height:120px}
+.categories button{padding:11px 15px}
 }
 </style>
 </head>
+
 <body>
 
 <header class="hero">
 <img class="cover" src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200" loading="lazy" alt="cover">
+
 <div class="hero-content">
 <img class="logo" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=300" loading="lazy" alt="logo">
 <h1>Bean House Coffee</h1>
@@ -62,12 +77,35 @@ body{font-family:Arial,sans-serif;background:#f6efe7;color:#24170f}
 </section>
 
 <nav class="categories" id="categories">
-<button class="active" data-section="all">الكل</button>
-<button data-section="hot">مشروبات ساخنة</button>
-<button data-section="cold">مشروبات باردة</button>
-<button data-section="dessert">حلويات</button>
-<button data-section="juice">عصائر</button>
-<button data-section="special">سبيشل كوفي</button>
+<button class="active" data-section="all">
+<i class="fa-solid fa-border-all"></i>
+<span>الكل</span>
+</button>
+
+<button data-section="hot">
+<i class="fa-solid fa-mug-hot"></i>
+<span>مشروبات ساخنة</span>
+</button>
+
+<button data-section="cold">
+<i class="fa-solid fa-glass-water"></i>
+<span>مشروبات باردة</span>
+</button>
+
+<button data-section="dessert">
+<i class="fa-solid fa-cake-candles"></i>
+<span>حلويات</span>
+</button>
+
+<button data-section="juice">
+<i class="fa-solid fa-lemon"></i>
+<span>عصائر</span>
+</button>
+
+<button data-section="special">
+<i class="fa-solid fa-star"></i>
+<span>سبيشل كوفي</span>
+</button>
 </nav>
 
 <main id="menu"></main>
@@ -83,7 +121,10 @@ body{font-family:Arial,sans-serif;background:#f6efe7;color:#24170f}
 </div>
 </div>
 
-<a class="whatsapp" href="https://wa.me/9647700000000" target="_blank">واتساب</a>
+<a class="whatsapp" href="https://wa.me/9647700000000" target="_blank">
+<i class="fa-brands fa-whatsapp"></i>
+واتساب
+</a>
 
 <script>
 const sections=[
@@ -95,20 +136,86 @@ const sections=[
 ];
 
 const products=[
-{id:1,section:"hot",name:"كابتشينو",desc:"قهوة إيطالية مع رغوة حليب ناعمة",price:"4,000 د.ع",image:"https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600"},
-{id:2,section:"hot",name:"هوت شوكليت",desc:"شوكولاتة ساخنة غنية وكريمية",price:"4,500 د.ع",image:"https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=600"},
-
-{id:3,section:"cold",name:"آيس لاتيه",desc:"اسبريسو بارد مع حليب وثلج",price:"5,000 د.ع",image:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600"},
-{id:4,section:"cold",name:"آيس أمريكانو",desc:"قهوة سوداء باردة بطعم قوي ومنعش",price:"4,000 د.ع",image:"https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=600"},
-
-{id:5,section:"dessert",name:"تشيز كيك",desc:"تشيز كيك ناعم بطبقة فاخرة",price:"5,500 د.ع",image:"https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=600"},
-{id:6,section:"dessert",name:"براوني",desc:"براوني شوكولاتة غني وطري",price:"4,500 د.ع",image:"https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600"},
-
-{id:7,section:"juice",name:"عصير برتقال",desc:"عصير برتقال طبيعي ومنعش",price:"3,500 د.ع",image:"https://images.unsplash.com/photo-1613478223719-2ab802602423?w=600"},
-{id:8,section:"juice",name:"ليمون نعناع",desc:"مشروب بارد بالليمون والنعناع",price:"4,000 د.ع",image:"https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=600"},
-
-{id:9,section:"special",name:"سبانش لاتيه",desc:"قهوة باردة بحليب مكثف ونكهة مميزة",price:"6,000 د.ع",image:"https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600"},
-{id:10,section:"special",name:"موكا كراميل",desc:"قهوة بالشوكولاتة والكراميل",price:"6,500 د.ع",image:"https://images.unsplash.com/photo-1579888944880-d98341245702?w=600"}
+{
+id:1,
+section:"hot",
+name:"كابتشينو",
+desc:"قهوة إيطالية مع رغوة حليب ناعمة",
+price:"4,000 د.ع",
+image:"https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600"
+},
+{
+id:2,
+section:"hot",
+name:"هوت شوكليت",
+desc:"شوكولاتة ساخنة غنية وكريمية",
+price:"4,500 د.ع",
+image:"https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=600"
+},
+{
+id:3,
+section:"cold",
+name:"آيس لاتيه",
+desc:"اسبريسو بارد مع حليب وثلج",
+price:"5,000 د.ع",
+image:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600"
+},
+{
+id:4,
+section:"cold",
+name:"آيس أمريكانو",
+desc:"قهوة سوداء باردة بطعم قوي ومنعش",
+price:"4,000 د.ع",
+image:"https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=600"
+},
+{
+id:5,
+section:"dessert",
+name:"تشيز كيك",
+desc:"تشيز كيك ناعم بطبقة فاخرة",
+price:"5,500 د.ع",
+image:"https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=600"
+},
+{
+id:6,
+section:"dessert",
+name:"براوني",
+desc:"براوني شوكولاتة غني وطري",
+price:"4,500 د.ع",
+image:"https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600"
+},
+{
+id:7,
+section:"juice",
+name:"عصير برتقال",
+desc:"عصير برتقال طبيعي ومنعش",
+price:"3,500 د.ع",
+image:"https://images.unsplash.com/photo-1613478223719-2ab802602423?w=600"
+},
+{
+id:8,
+section:"juice",
+name:"ليمون نعناع",
+desc:"مشروب بارد بالليمون والنعناع",
+price:"4,000 د.ع",
+image:"https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=600"
+},
+{
+id:9,
+section:"special",
+name:"سبانش لاتيه",
+desc:"قهوة باردة بحليب مكثف ونكهة مميزة",
+price:"6,000 د.ع",
+image:"https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600"
+},
+{
+id:10,
+section:"special",
+name:"موكا كراميل",
+desc:"قهوة بالشوكولاتة والكراميل",
+price:"6,500 د.ع",
+image:"https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600"
+}
 ];
 
 const menu=document.getElementById("menu");
@@ -127,7 +234,10 @@ menu.innerHTML="";
 let totalVisible=0;
 
 sections.forEach(sec=>{
-const list=products.filter(p=>p.section===sec.id&&(p.name.toLowerCase().includes(text)||p.desc.toLowerCase().includes(text)));
+const list=products.filter(p=>{
+return p.section===sec.id&&(p.name.toLowerCase().includes(text)||p.desc.toLowerCase().includes(text));
+});
+
 if(list.length===0)return;
 
 totalVisible+=list.length;
@@ -169,7 +279,12 @@ modal.classList.add("show");
 }
 
 closeModal.onclick=()=>modal.classList.remove("show");
-modal.onclick=e=>{if(e.target===modal)modal.classList.remove("show")};
+
+modal.onclick=e=>{
+if(e.target===modal){
+modal.classList.remove("show");
+}
+};
 
 document.querySelectorAll("[data-section]").forEach(btn=>{
 btn.onclick=()=>{
@@ -179,7 +294,10 @@ btn.classList.add("active");
 if(btn.dataset.section==="all"){
 window.scrollTo({top:0,behavior:"smooth"});
 }else{
-document.getElementById(btn.dataset.section)?.scrollIntoView({behavior:"smooth",block:"start"});
+document.getElementById(btn.dataset.section)?.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
 }
 };
 });
