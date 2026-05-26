@@ -3,113 +3,117 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coffee Shop Menu</title>
+<title>Coffee Menu</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f6efe7;color:#221813}
-.hero{position:relative;height:280px;border-bottom-left-radius:35px;border-bottom-right-radius:35px;overflow:hidden}
-.cover{width:100%;height:100%;object-fit:cover;filter:brightness(45%)}
-.hero-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:20px}
-.logo{width:92px;height:92px;border-radius:50%;background:#fff;padding:10px;object-fit:contain;margin-bottom:14px}
+body{font-family:Arial,sans-serif;background:#f6efe7;color:#24170f}
+.hero{height:300px;position:relative;overflow:hidden;border-bottom-left-radius:36px;border-bottom-right-radius:36px}
+.hero img.cover{width:100%;height:100%;object-fit:cover;filter:brightness(45%)}
+.hero-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;color:white;text-align:center;padding:20px}
+.logo{width:95px;height:95px;border-radius:50%;background:white;padding:10px;object-fit:contain;margin-bottom:14px}
 .hero h1{font-size:34px;margin-bottom:8px}
 .hero p{font-size:15px;opacity:.9}
 .search{padding:18px}
 .search input{width:100%;padding:15px 18px;border:0;border-radius:18px;font-size:16px;outline:0;box-shadow:0 8px 25px rgba(0,0,0,.08)}
-.categories{display:flex;gap:10px;overflow-x:auto;padding:0 18px 18px;position:sticky;top:0;background:#f6efe7;z-index:5}
-.categories button{border:0;padding:12px 18px;border-radius:999px;background:#fff;color:#3b2a20;font-size:14px;white-space:nowrap;cursor:pointer}
-.categories button.active{background:#3b2418;color:#fff}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;padding:18px}
-.card{background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,.08);cursor:pointer;transition:.2s}
-.card:hover{transform:translateY(-3px)}
+.categories{position:sticky;top:0;z-index:10;background:#f6efe7;display:flex;gap:10px;overflow-x:auto;padding:0 18px 18px}
+.categories button{border:0;background:white;color:#3b2618;padding:12px 18px;border-radius:999px;white-space:nowrap;font-weight:bold;cursor:pointer}
+.categories button.active{background:#3b2418;color:white}
+.menu-section{padding:10px 18px 24px;scroll-margin-top:80px}
+.section-title{font-size:23px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:16px}
+.card{background:white;border-radius:24px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,.08);cursor:pointer}
 .card img{width:100%;height:145px;object-fit:cover;background:#ddd}
 .card-body{padding:14px}
 .card h3{font-size:17px;margin-bottom:6px}
-.card p{font-size:13px;color:#6b5b50;line-height:1.5;margin-bottom:10px}
+.card p{font-size:13px;color:#6a5a4e;line-height:1.5;margin-bottom:10px}
 .price{font-weight:bold;color:#a66a2c}
-.empty{text-align:center;padding:35px;color:#7b6b60}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}
+.hidden{display:none}
+.empty{text-align:center;padding:40px;color:#76675d}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
 .modal.show{display:flex}
-.modal-box{background:#fff;width:100%;max-width:430px;border-radius:28px;padding:18px;position:relative}
-.close{position:absolute;top:12px;left:12px;border:0;background:#111;color:#fff;width:36px;height:36px;border-radius:50%;font-size:24px;cursor:pointer}
+.modal-box{background:white;width:100%;max-width:430px;border-radius:28px;padding:18px;position:relative}
+.close{position:absolute;top:12px;left:12px;border:0;background:#111;color:white;width:36px;height:36px;border-radius:50%;font-size:24px;cursor:pointer}
 .modal-box img{width:100%;height:240px;object-fit:cover;border-radius:22px;margin-bottom:15px}
 .modal-box h2{font-size:24px;margin-bottom:8px}
 .modal-box p{color:#65564d;line-height:1.7;margin-bottom:12px}
 .modal-price{font-size:20px;font-weight:bold;color:#a66a2c}
-.whatsapp{position:fixed;bottom:18px;left:18px;background:#25d366;color:#fff;text-decoration:none;padding:13px 18px;border-radius:999px;font-weight:bold;box-shadow:0 8px 25px rgba(0,0,0,.2)}
+.whatsapp{position:fixed;bottom:18px;left:18px;background:#25d366;color:white;text-decoration:none;padding:13px 18px;border-radius:999px;font-weight:bold;box-shadow:0 8px 25px rgba(0,0,0,.2);z-index:30}
 @media(max-width:480px){
-.hero{height:250px}
+.hero{height:255px}
 .hero h1{font-size:28px}
-.grid{grid-template-columns:repeat(2,1fr);gap:12px;padding:14px}
+.grid{grid-template-columns:repeat(2,1fr);gap:12px}
 .card img{height:120px}
-.card-body{padding:12px}
-.card h3{font-size:15px}
 }
 </style>
 </head>
 <body>
 
 <header class="hero">
-  <!-- PLACE COVER IMAGE HERE -->
-  <img class="cover" src="images/coffee-cover.jpg" loading="lazy" alt="Coffee Shop Cover">
-
-  <div class="hero-content">
-    <!-- PLACE BUSINESS LOGO HERE -->
-    <img class="logo" src="images/logo.png" loading="lazy" alt="Coffee Shop Logo">
-
-    <h1>Bean House Coffee</h1>
-    <p>قهوة مختصة، مشروبات باردة، وحلويات يومية طازجة</p>
-  </div>
+<img class="cover" src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200" loading="lazy" alt="cover">
+<div class="hero-content">
+<img class="logo" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=300" loading="lazy" alt="logo">
+<h1>Bean House Coffee</h1>
+<p>مشروبات ساخنة وباردة وحلويات يومية طازجة</p>
+</div>
 </header>
 
 <section class="search">
-  <input id="searchInput" type="text" placeholder="ابحث عن مشروب أو حلى...">
+<input id="searchInput" type="text" placeholder="ابحث عن منتج...">
 </section>
 
-<nav class="categories">
-  <button class="active" data-category="all">الكل</button>
-  <button data-category="hot">مشروبات ساخنة</button>
-  <button data-category="cold">مشروبات باردة</button>
-  <button data-category="dessert">حلويات</button>
-  <button data-category="juice">عصائر</button>
-  <button data-category="special">سبيشل كوفي</button>
+<nav class="categories" id="categories">
+<button class="active" data-section="all">الكل</button>
+<button data-section="hot">مشروبات ساخنة</button>
+<button data-section="cold">مشروبات باردة</button>
+<button data-section="dessert">حلويات</button>
+<button data-section="juice">عصائر</button>
+<button data-section="special">سبيشل كوفي</button>
 </nav>
 
-<main class="grid" id="menuGrid"></main>
+<main id="menu"></main>
+<div id="empty" class="empty hidden">لا توجد منتجات مطابقة للبحث</div>
 
 <div class="modal" id="modal">
-  <div class="modal-box">
-    <button class="close" id="closeModal">×</button>
-    <img id="modalImage" loading="lazy" alt="">
-    <h2 id="modalTitle"></h2>
-    <p id="modalDesc"></p>
-    <div class="modal-price" id="modalPrice"></div>
-  </div>
+<div class="modal-box">
+<button class="close" id="closeModal">×</button>
+<img id="modalImage" loading="lazy" alt="">
+<h2 id="modalTitle"></h2>
+<p id="modalDesc"></p>
+<div class="modal-price" id="modalPrice"></div>
+</div>
 </div>
 
-<!-- PLACE WHATSAPP NUMBER HERE -->
 <a class="whatsapp" href="https://wa.me/9647700000000" target="_blank">واتساب</a>
 
 <script>
-const products=[
-{id:1,name:"كابتشينو",desc:"قهوة إيطالية مع رغوة حليب ناعمة",price:"4,000 د.ع",category:"hot",image:"images/cappuccino.jpg"},
-{id:2,name:"هوت شوكليت",desc:"شوكولاتة ساخنة غنية وكريمية",price:"4,500 د.ع",category:"hot",image:"images/hot-chocolate.jpg"},
-
-{id:3,name:"آيس لاتيه",desc:"اسبريسو بارد مع حليب وثلج",price:"5,000 د.ع",category:"cold",image:"images/iced-latte.jpg"},
-{id:4,name:"آيس أمريكانو",desc:"قهوة سوداء باردة بطعم قوي",price:"4,000 د.ع",category:"cold",image:"images/iced-americano.jpg"},
-
-{id:5,name:"تشيز كيك",desc:"تشيز كيك ناعم بطبقة فاخرة",price:"5,500 د.ع",category:"dessert",image:"images/cheesecake.jpg"},
-{id:6,name:"براوني",desc:"براوني شوكولاتة غني وطري",price:"4,500 د.ع",category:"dessert",image:"images/brownie.jpg"},
-
-{id:7,name:"عصير برتقال",desc:"عصير برتقال طبيعي ومنعش",price:"3,500 د.ع",category:"juice",image:"images/orange-juice.jpg"},
-{id:8,name:"ليمون نعناع",desc:"مشروب منعش بالليمون والنعناع",price:"4,000 د.ع",category:"juice",image:"images/mint-lemon.jpg"},
-
-{id:9,name:"سبانش لاتيه",desc:"قهوة باردة بحليب مكثف ونكهة مميزة",price:"6,000 د.ع",category:"special",image:"images/spanish-latte.jpg"},
-{id:10,name:"موكا كراميل",desc:"قهوة بالشوكولاتة والكراميل",price:"6,500 د.ع",category:"special",image:"images/caramel-mocha.jpg"}
+const sections=[
+{id:"hot",title:"☕ مشروبات ساخنة"},
+{id:"cold",title:"🧊 مشروبات باردة"},
+{id:"dessert",title:"🍰 حلويات"},
+{id:"juice",title:"🍊 عصائر"},
+{id:"special",title:"⭐ سبيشل كوفي"}
 ];
 
-const grid=document.getElementById("menuGrid");
+const products=[
+{id:1,section:"hot",name:"كابتشينو",desc:"قهوة إيطالية مع رغوة حليب ناعمة",price:"4,000 د.ع",image:"https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600"},
+{id:2,section:"hot",name:"هوت شوكليت",desc:"شوكولاتة ساخنة غنية وكريمية",price:"4,500 د.ع",image:"https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=600"},
+
+{id:3,section:"cold",name:"آيس لاتيه",desc:"اسبريسو بارد مع حليب وثلج",price:"5,000 د.ع",image:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600"},
+{id:4,section:"cold",name:"آيس أمريكانو",desc:"قهوة سوداء باردة بطعم قوي ومنعش",price:"4,000 د.ع",image:"https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=600"},
+
+{id:5,section:"dessert",name:"تشيز كيك",desc:"تشيز كيك ناعم بطبقة فاخرة",price:"5,500 د.ع",image:"https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=600"},
+{id:6,section:"dessert",name:"براوني",desc:"براوني شوكولاتة غني وطري",price:"4,500 د.ع",image:"https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600"},
+
+{id:7,section:"juice",name:"عصير برتقال",desc:"عصير برتقال طبيعي ومنعش",price:"3,500 د.ع",image:"https://images.unsplash.com/photo-1613478223719-2ab802602423?w=600"},
+{id:8,section:"juice",name:"ليمون نعناع",desc:"مشروب بارد بالليمون والنعناع",price:"4,000 د.ع",image:"https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=600"},
+
+{id:9,section:"special",name:"سبانش لاتيه",desc:"قهوة باردة بحليب مكثف ونكهة مميزة",price:"6,000 د.ع",image:"https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600"},
+{id:10,section:"special",name:"موكا كراميل",desc:"قهوة بالشوكولاتة والكراميل",price:"6,500 د.ع",image:"https://images.unsplash.com/photo-1579888944880-d98341245702?w=600"}
+];
+
+const menu=document.getElementById("menu");
 const searchInput=document.getElementById("searchInput");
-const buttons=document.querySelectorAll(".categories button");
+const empty=document.getElementById("empty");
 const modal=document.getElementById("modal");
 const closeModal=document.getElementById("closeModal");
 const modalImage=document.getElementById("modalImage");
@@ -117,63 +121,71 @@ const modalTitle=document.getElementById("modalTitle");
 const modalDesc=document.getElementById("modalDesc");
 const modalPrice=document.getElementById("modalPrice");
 
-let activeCategory="all";
+function render(){
+const text=searchInput.value.trim().toLowerCase();
+menu.innerHTML="";
+let totalVisible=0;
 
-function renderProducts(){
-  const text=searchInput.value.trim().toLowerCase();
-  const filtered=products.filter(p=>{
-    const byCategory=activeCategory==="all"||p.category===activeCategory;
-    const bySearch=p.name.toLowerCase().includes(text)||p.desc.toLowerCase().includes(text);
-    return byCategory&&bySearch;
-  });
+sections.forEach(sec=>{
+const list=products.filter(p=>p.section===sec.id&&(p.name.toLowerCase().includes(text)||p.desc.toLowerCase().includes(text)));
+if(list.length===0)return;
 
-  grid.innerHTML="";
+totalVisible+=list.length;
 
-  if(filtered.length===0){
-    grid.innerHTML='<div class="empty">لا توجد منتجات مطابقة للبحث</div>';
-    return;
-  }
+const section=document.createElement("section");
+section.className="menu-section";
+section.id=sec.id;
 
-  filtered.forEach(p=>{
-    const card=document.createElement("div");
-    card.className="card";
-    card.innerHTML=`
-      <!-- PLACE PRODUCT IMAGE HERE -->
-      <img src="${p.image}" loading="lazy" alt="${p.name}">
-      <div class="card-body">
-        <h3>${p.name}</h3>
-        <p>${p.desc}</p>
-        <div class="price">${p.price}</div>
-      </div>
-    `;
-    card.onclick=()=>openModal(p);
-    grid.appendChild(card);
-  });
+section.innerHTML=`
+<h2 class="section-title">${sec.title}</h2>
+<div class="grid">
+${list.map(p=>`
+<div class="card" onclick="openProduct(${p.id})">
+<img src="${p.image}" loading="lazy" alt="${p.name}">
+<div class="card-body">
+<h3>${p.name}</h3>
+<p>${p.desc}</p>
+<div class="price">${p.price}</div>
+</div>
+</div>
+`).join("")}
+</div>
+`;
+
+menu.appendChild(section);
+});
+
+empty.classList.toggle("hidden",totalVisible!==0);
 }
 
-function openModal(p){
-  modalImage.src=p.image;
-  modalImage.alt=p.name;
-  modalTitle.textContent=p.name;
-  modalDesc.textContent=p.desc;
-  modalPrice.textContent=p.price;
-  modal.classList.add("show");
+function openProduct(id){
+const p=products.find(x=>x.id===id);
+modalImage.src=p.image;
+modalImage.alt=p.name;
+modalTitle.textContent=p.name;
+modalDesc.textContent=p.desc;
+modalPrice.textContent=p.price;
+modal.classList.add("show");
 }
 
 closeModal.onclick=()=>modal.classList.remove("show");
 modal.onclick=e=>{if(e.target===modal)modal.classList.remove("show")};
 
-buttons.forEach(btn=>{
-  btn.onclick=()=>{
-    buttons.forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-    activeCategory=btn.dataset.category;
-    renderProducts();
-  };
+document.querySelectorAll("[data-section]").forEach(btn=>{
+btn.onclick=()=>{
+document.querySelectorAll("[data-section]").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+
+if(btn.dataset.section==="all"){
+window.scrollTo({top:0,behavior:"smooth"});
+}else{
+document.getElementById(btn.dataset.section)?.scrollIntoView({behavior:"smooth",block:"start"});
+}
+};
 });
 
-searchInput.oninput=renderProducts;
-renderProducts();
+searchInput.oninput=render;
+render();
 </script>
 
 </body>
