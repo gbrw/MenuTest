@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coffee Shop Menu</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f6efe7;color:#221813}
+.hero{position:relative;height:280px;border-bottom-left-radius:35px;border-bottom-right-radius:35px;overflow:hidden}
+.cover{width:100%;height:100%;object-fit:cover;filter:brightness(45%)}
+.hero-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:20px}
+.logo{width:92px;height:92px;border-radius:50%;background:#fff;padding:10px;object-fit:contain;margin-bottom:14px}
+.hero h1{font-size:34px;margin-bottom:8px}
+.hero p{font-size:15px;opacity:.9}
+.search{padding:18px}
+.search input{width:100%;padding:15px 18px;border:0;border-radius:18px;font-size:16px;outline:0;box-shadow:0 8px 25px rgba(0,0,0,.08)}
+.categories{display:flex;gap:10px;overflow-x:auto;padding:0 18px 18px;position:sticky;top:0;background:#f6efe7;z-index:5}
+.categories button{border:0;padding:12px 18px;border-radius:999px;background:#fff;color:#3b2a20;font-size:14px;white-space:nowrap;cursor:pointer}
+.categories button.active{background:#3b2418;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;padding:18px}
+.card{background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,.08);cursor:pointer;transition:.2s}
+.card:hover{transform:translateY(-3px)}
+.card img{width:100%;height:145px;object-fit:cover;background:#ddd}
+.card-body{padding:14px}
+.card h3{font-size:17px;margin-bottom:6px}
+.card p{font-size:13px;color:#6b5b50;line-height:1.5;margin-bottom:10px}
+.price{font-weight:bold;color:#a66a2c}
+.empty{text-align:center;padding:35px;color:#7b6b60}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}
+.modal.show{display:flex}
+.modal-box{background:#fff;width:100%;max-width:430px;border-radius:28px;padding:18px;position:relative}
+.close{position:absolute;top:12px;left:12px;border:0;background:#111;color:#fff;width:36px;height:36px;border-radius:50%;font-size:24px;cursor:pointer}
+.modal-box img{width:100%;height:240px;object-fit:cover;border-radius:22px;margin-bottom:15px}
+.modal-box h2{font-size:24px;margin-bottom:8px}
+.modal-box p{color:#65564d;line-height:1.7;margin-bottom:12px}
+.modal-price{font-size:20px;font-weight:bold;color:#a66a2c}
+.whatsapp{position:fixed;bottom:18px;left:18px;background:#25d366;color:#fff;text-decoration:none;padding:13px 18px;border-radius:999px;font-weight:bold;box-shadow:0 8px 25px rgba(0,0,0,.2)}
+@media(max-width:480px){
+.hero{height:250px}
+.hero h1{font-size:28px}
+.grid{grid-template-columns:repeat(2,1fr);gap:12px;padding:14px}
+.card img{height:120px}
+.card-body{padding:12px}
+.card h3{font-size:15px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <!-- PLACE COVER IMAGE HERE -->
+  <img class="cover" src="images/coffee-cover.jpg" loading="lazy" alt="Coffee Shop Cover">
+
+  <div class="hero-content">
+    <!-- PLACE BUSINESS LOGO HERE -->
+    <img class="logo" src="images/logo.png" loading="lazy" alt="Coffee Shop Logo">
+
+    <h1>Bean House Coffee</h1>
+    <p>قهوة مختصة، مشروبات باردة، وحلويات يومية طازجة</p>
+  </div>
+</header>
+
+<section class="search">
+  <input id="searchInput" type="text" placeholder="ابحث عن مشروب أو حلى...">
+</section>
+
+<nav class="categories">
+  <button class="active" data-category="all">الكل</button>
+  <button data-category="hot">مشروبات ساخنة</button>
+  <button data-category="cold">مشروبات باردة</button>
+  <button data-category="dessert">حلويات</button>
+  <button data-category="juice">عصائر</button>
+  <button data-category="special">سبيشل كوفي</button>
+</nav>
+
+<main class="grid" id="menuGrid"></main>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="close" id="closeModal">×</button>
+    <img id="modalImage" loading="lazy" alt="">
+    <h2 id="modalTitle"></h2>
+    <p id="modalDesc"></p>
+    <div class="modal-price" id="modalPrice"></div>
+  </div>
+</div>
+
+<!-- PLACE WHATSAPP NUMBER HERE -->
+<a class="whatsapp" href="https://wa.me/9647700000000" target="_blank">واتساب</a>
+
+<script>
+const products=[
+{id:1,name:"كابتشينو",desc:"قهوة إيطالية مع رغوة حليب ناعمة",price:"4,000 د.ع",category:"hot",image:"images/cappuccino.jpg"},
+{id:2,name:"هوت شوكليت",desc:"شوكولاتة ساخنة غنية وكريمية",price:"4,500 د.ع",category:"hot",image:"images/hot-chocolate.jpg"},
+
+{id:3,name:"آيس لاتيه",desc:"اسبريسو بارد مع حليب وثلج",price:"5,000 د.ع",category:"cold",image:"images/iced-latte.jpg"},
+{id:4,name:"آيس أمريكانو",desc:"قهوة سوداء باردة بطعم قوي",price:"4,000 د.ع",category:"cold",image:"images/iced-americano.jpg"},
+
+{id:5,name:"تشيز كيك",desc:"تشيز كيك ناعم بطبقة فاخرة",price:"5,500 د.ع",category:"dessert",image:"images/cheesecake.jpg"},
+{id:6,name:"براوني",desc:"براوني شوكولاتة غني وطري",price:"4,500 د.ع",category:"dessert",image:"images/brownie.jpg"},
+
+{id:7,name:"عصير برتقال",desc:"عصير برتقال طبيعي ومنعش",price:"3,500 د.ع",category:"juice",image:"images/orange-juice.jpg"},
+{id:8,name:"ليمون نعناع",desc:"مشروب منعش بالليمون والنعناع",price:"4,000 د.ع",category:"juice",image:"images/mint-lemon.jpg"},
+
+{id:9,name:"سبانش لاتيه",desc:"قهوة باردة بحليب مكثف ونكهة مميزة",price:"6,000 د.ع",category:"special",image:"images/spanish-latte.jpg"},
+{id:10,name:"موكا كراميل",desc:"قهوة بالشوكولاتة والكراميل",price:"6,500 د.ع",category:"special",image:"images/caramel-mocha.jpg"}
+];
+
+const grid=document.getElementById("menuGrid");
+const searchInput=document.getElementById("searchInput");
+const buttons=document.querySelectorAll(".categories button");
+const modal=document.getElementById("modal");
+const closeModal=document.getElementById("closeModal");
+const modalImage=document.getElementById("modalImage");
+const modalTitle=document.getElementById("modalTitle");
+const modalDesc=document.getElementById("modalDesc");
+const modalPrice=document.getElementById("modalPrice");
+
+let activeCategory="all";
+
+function renderProducts(){
+  const text=searchInput.value.trim().toLowerCase();
+  const filtered=products.filter(p=>{
+    const byCategory=activeCategory==="all"||p.category===activeCategory;
+    const bySearch=p.name.toLowerCase().includes(text)||p.desc.toLowerCase().includes(text);
+    return byCategory&&bySearch;
+  });
+
+  grid.innerHTML="";
+
+  if(filtered.length===0){
+    grid.innerHTML='<div class="empty">لا توجد منتجات مطابقة للبحث</div>';
+    return;
+  }
+
+  filtered.forEach(p=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
+      <!-- PLACE PRODUCT IMAGE HERE -->
+      <img src="${p.image}" loading="lazy" alt="${p.name}">
+      <div class="card-body">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="price">${p.price}</div>
+      </div>
+    `;
+    card.onclick=()=>openModal(p);
+    grid.appendChild(card);
+  });
+}
+
+function openModal(p){
+  modalImage.src=p.image;
+  modalImage.alt=p.name;
+  modalTitle.textContent=p.name;
+  modalDesc.textContent=p.desc;
+  modalPrice.textContent=p.price;
+  modal.classList.add("show");
+}
+
+closeModal.onclick=()=>modal.classList.remove("show");
+modal.onclick=e=>{if(e.target===modal)modal.classList.remove("show")};
+
+buttons.forEach(btn=>{
+  btn.onclick=()=>{
+    buttons.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    activeCategory=btn.dataset.category;
+    renderProducts();
+  };
+});
+
+searchInput.oninput=renderProducts;
+renderProducts();
+</script>
+
+</body>
+</html>
