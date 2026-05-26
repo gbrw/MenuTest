@@ -3,391 +3,118 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coffee Menu</title>
-
+<title>Bean House Coffee Menu</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-
-body{
-font-family:Arial,sans-serif;
-background:#f6efe7;
-color:#24170f;
-}
-
-.hero{
-height:300px;
-position:relative;
-overflow:hidden;
-border-bottom-left-radius:36px;
-border-bottom-right-radius:36px;
-}
-
-.hero img.cover{
-width:100%;
-height:100%;
-object-fit:cover;
-filter:brightness(45%);
-}
-
-.hero-content{
-position:absolute;
-inset:0;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-color:white;
-text-align:center;
-padding:20px;
-}
-
-.logo{
-width:95px;
-height:95px;
-border-radius:50%;
-background:white;
-padding:10px;
-object-fit:contain;
-margin-bottom:14px;
-}
-
-.hero h1{
-font-size:34px;
-margin-bottom:8px;
-}
-
-.hero p{
-font-size:15px;
-opacity:.9;
-}
-
-.search{
-padding:18px;
-}
-
-.search input{
-width:100%;
-padding:15px 18px;
-border:0;
-border-radius:18px;
-font-size:16px;
-outline:0;
-box-shadow:0 8px 25px rgba(0,0,0,.08);
-}
-
-.categories{
-position:sticky;
-top:0;
-z-index:10;
-background:#f6efe7;
-display:flex;
-gap:12px;
-overflow-x:auto;
-padding:0 18px 18px;
-}
-
-.categories button{
-border:0;
-background:white;
-color:#3b2618;
-padding:12px 18px;
-border-radius:18px;
-white-space:nowrap;
-font-weight:bold;
-cursor:pointer;
-display:flex;
-align-items:center;
-gap:10px;
-box-shadow:0 5px 18px rgba(0,0,0,.06);
-transition:.2s;
-}
-
-.categories button i{
-font-size:16px;
-}
-
-.categories button.active{
-background:#3b2418;
-color:white;
-}
-
-.menu-section{
-padding:10px 18px 24px;
-scroll-margin-top:80px;
-}
-
-.section-title{
-display:flex;
-align-items:center;
-gap:10px;
-font-size:24px;
-margin-bottom:16px;
-color:#3b2418;
-}
-
-.section-title i{
-font-size:22px;
-width:30px;
-text-align:center;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(165px,1fr));
-gap:16px;
-}
-
-.card{
-background:white;
-border-radius:24px;
-overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-cursor:pointer;
-transition:.2s;
-}
-
-.card:hover{
-transform:translateY(-3px);
-}
-
-.card img{
-width:100%;
-height:145px;
-object-fit:cover;
-background:#ddd;
-}
-
-.card-body{
-padding:14px;
-}
-
-.card h3{
-font-size:17px;
-margin-bottom:6px;
-}
-
-.card p{
-font-size:13px;
-color:#6a5a4e;
-line-height:1.5;
-margin-bottom:10px;
-}
-
-.price{
-font-weight:bold;
-color:#a66a2c;
-font-size:16px;
-}
-
-.sizes{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-top:10px;
-}
-
-.size-btn{
-border:1px solid #ead7c5;
-background:#fff7ef;
-color:#3b2418;
-padding:7px 10px;
-border-radius:999px;
-font-size:12px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.size-btn.active{
-background:#3b2418;
-color:white;
-border-color:#3b2418;
-}
-
-.hidden{
-display:none;
-}
-
-.empty{
-text-align:center;
-padding:40px;
-color:#76675d;
-}
-
-.modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.6);
-display:none;
-align-items:center;
-justify-content:center;
-padding:18px;
-z-index:50;
-}
-
-.modal.show{
-display:flex;
-}
-
-.modal-box{
-background:white;
-width:100%;
-max-width:430px;
-border-radius:28px;
-padding:18px;
-position:relative;
-}
-
-.close{
-position:absolute;
-top:12px;
-left:12px;
-border:0;
-background:#111;
-color:white;
-width:36px;
-height:36px;
-border-radius:50%;
-font-size:24px;
-cursor:pointer;
-}
-
-.modal-box img{
-width:100%;
-height:240px;
-object-fit:cover;
-border-radius:22px;
-margin-bottom:15px;
-}
-
-.modal-box h2{
-font-size:24px;
-margin-bottom:8px;
-}
-
-.modal-box p{
-color:#65564d;
-line-height:1.7;
-margin-bottom:12px;
-}
-
-.modal-price{
-font-size:20px;
-font-weight:bold;
-color:#a66a2c;
-}
-
-.modal-sizes{
-margin:14px 0;
-}
-
-.whatsapp{
-position:fixed;
-bottom:18px;
-left:18px;
-background:#25d366;
-color:white;
-text-decoration:none;
-padding:13px 18px;
-border-radius:999px;
-font-weight:bold;
-box-shadow:0 8px 25px rgba(0,0,0,.2);
-z-index:30;
-display:flex;
-align-items:center;
-gap:8px;
-}
-
-@media(max-width:480px){
-.hero{
-height:255px;
-}
-
-.hero h1{
-font-size:28px;
-}
-
-.grid{
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
-
-.card img{
-height:120px;
-}
-
-.categories button{
-padding:11px 15px;
-}
-
-.card-body{
-padding:12px;
-}
-
-.card h3{
-font-size:15px;
-}
+html{scroll-behavior:smooth}
+body{font-family:Arial,Tahoma,sans-serif;background:#f6efe7;color:#24170f;min-height:100vh}
+.hero{height:310px;position:relative;overflow:hidden;border-bottom-left-radius:38px;border-bottom-right-radius:38px}
+.hero img.cover{width:100%;height:100%;object-fit:cover;filter:brightness(42%)}
+.hero-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;color:white;text-align:center;padding:20px}
+.logo{width:96px;height:96px;border-radius:50%;background:white;padding:10px;object-fit:cover;margin-bottom:14px;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+.hero h1{font-size:36px;margin-bottom:8px;letter-spacing:.3px}
+.hero p{font-size:15px;opacity:.92;max-width:520px;line-height:1.7}
+.search{padding:18px 18px 12px}
+.search-wrap{position:relative}
+.search-wrap i{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:#9b7a5d}
+.search input{width:100%;padding:16px 46px 16px 18px;border:0;border-radius:20px;font-size:16px;outline:0;box-shadow:0 10px 28px rgba(0,0,0,.08);background:white;color:#24170f}
+.categories{position:sticky;top:0;z-index:10;background:#f6efe7;display:flex;gap:12px;overflow-x:auto;padding:8px 18px 18px;scrollbar-width:none}
+.categories::-webkit-scrollbar{display:none}
+.categories button{border:0;background:white;color:#3b2618;padding:12px 18px;border-radius:18px;white-space:nowrap;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:10px;box-shadow:0 5px 18px rgba(0,0,0,.06);transition:.2s}
+.categories button i{font-size:16px}
+.categories button.active{background:#3b2418;color:white}
+.menu-section{padding:10px 18px 28px;scroll-margin-top:92px}
+.section-title{display:flex;align-items:center;gap:10px;font-size:24px;margin-bottom:16px;color:#3b2418}
+.section-title i{font-size:22px;width:30px;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+.card{background:white;border-radius:24px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,.08);cursor:pointer;transition:.2s;border:1px solid rgba(80,45,22,.05)}
+.card:hover{transform:translateY(-3px)}
+.card-image-wrap{position:relative}
+.card img{width:100%;height:150px;object-fit:cover;background:#ddd;display:block}
+.gallery-badge{position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,.55);color:white;border-radius:999px;padding:5px 9px;font-size:12px;display:flex;align-items:center;gap:5px;backdrop-filter:blur(8px)}
+.card-body{padding:14px}
+.card h3{font-size:17px;margin-bottom:6px}
+.card p{font-size:13px;color:#6a5a4e;line-height:1.5;margin-bottom:10px;min-height:40px}
+.price{font-weight:bold;color:#a66a2c;font-size:16px}
+.sizes{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.size-btn{border:1px solid #ead7c5;background:#fff7ef;color:#3b2418;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:bold;cursor:pointer;transition:.2s}
+.size-btn.active{background:#3b2418;color:white;border-color:#3b2418}
+.hidden{display:none}
+.empty{text-align:center;padding:44px 20px;color:#76675d}
+.empty i{font-size:32px;margin-bottom:10px;color:#b3906e}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.62);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
+.modal.show{display:flex}
+.modal-box{background:white;width:100%;max-width:460px;border-radius:28px;padding:18px;position:relative;max-height:92vh;overflow-y:auto;box-shadow:0 20px 70px rgba(0,0,0,.35)}
+.close{position:absolute;top:12px;left:12px;border:0;background:#111;color:white;width:36px;height:36px;border-radius:50%;font-size:24px;cursor:pointer;z-index:2}
+.gallery{margin-bottom:16px}
+#mainImage{width:100%;height:260px;object-fit:cover;border-radius:22px;background:#ddd;display:block}
+.thumbs{display:flex;gap:8px;margin-top:10px;overflow-x:auto;padding-bottom:3px;scrollbar-width:none}
+.thumbs::-webkit-scrollbar{display:none}
+.thumbs img{width:70px;height:70px;object-fit:cover;border-radius:14px;cursor:pointer;border:3px solid transparent;opacity:.75;transition:.2s;background:#ddd}
+.thumbs img.active{border-color:#3b2418;opacity:1}
+.modal-box h2{font-size:24px;margin-bottom:8px}
+.modal-box p{color:#65564d;line-height:1.7;margin-bottom:12px}
+.modal-price{font-size:21px;font-weight:bold;color:#a66a2c;margin-top:8px}
+.modal-sizes{margin:14px 0}
+.whatsapp{position:fixed;bottom:18px;left:18px;background:#25d366;color:white;text-decoration:none;padding:13px 18px;border-radius:999px;font-weight:bold;box-shadow:0 8px 25px rgba(0,0,0,.2);z-index:30;display:flex;align-items:center;gap:8px}
+.footer{padding:26px 18px 90px;text-align:center;color:#806c5e;font-size:13px}
+@media(max-width:520px){
+.hero{height:260px}
+.hero h1{font-size:29px}
+.hero p{font-size:14px}
+.grid{grid-template-columns:repeat(2,1fr);gap:12px}
+.card img{height:120px}
+.categories button{padding:11px 15px}
+.card-body{padding:12px}
+.card h3{font-size:15px}
+.card p{font-size:12px;min-height:38px}
+.size-btn{font-size:11px;padding:6px 8px}
+#mainImage{height:235px}
 }
 </style>
 </head>
-
 <body>
 
 <header class="hero">
-<img class="cover" src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200" loading="lazy" alt="Coffee shop cover">
-
+<img class="cover" src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1400&q=80" loading="lazy" alt="Coffee shop cover">
 <div class="hero-content">
-<img class="logo" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=300" loading="lazy" alt="Coffee shop logo">
+<img class="logo" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400&q=80" loading="lazy" alt="Coffee shop logo">
 <h1>Bean House Coffee</h1>
-<p>مشروبات ساخنة وباردة وحلويات يومية طازجة</p>
+<p>مشروبات ساخنة وباردة، حلويات يومية، وعصائر منعشة بتجربة منيو عصرية</p>
 </div>
 </header>
 
 <section class="search">
+<div class="search-wrap">
+<i class="fa-solid fa-magnifying-glass"></i>
 <input id="searchInput" type="text" placeholder="ابحث عن منتج...">
+</div>
 </section>
 
 <nav class="categories" id="categories">
-<button class="active" data-section="all">
-<i class="fa-solid fa-border-all"></i>
-<span>الكل</span>
-</button>
-
-<button data-section="hot">
-<i class="fa-solid fa-mug-hot"></i>
-<span>مشروبات ساخنة</span>
-</button>
-
-<button data-section="cold">
-<i class="fa-solid fa-glass-water"></i>
-<span>مشروبات باردة</span>
-</button>
-
-<button data-section="dessert">
-<i class="fa-solid fa-cake-candles"></i>
-<span>حلويات</span>
-</button>
-
-<button data-section="juice">
-<i class="fa-solid fa-lemon"></i>
-<span>عصائر</span>
-</button>
-
-<button data-section="special">
-<i class="fa-solid fa-star"></i>
-<span>سبيشل كوفي</span>
-</button>
+<button class="active" data-section="all"><i class="fa-solid fa-border-all"></i><span>الكل</span></button>
+<button data-section="hot"><i class="fa-solid fa-mug-hot"></i><span>مشروبات ساخنة</span></button>
+<button data-section="cold"><i class="fa-solid fa-glass-water"></i><span>مشروبات باردة</span></button>
+<button data-section="dessert"><i class="fa-solid fa-cake-candles"></i><span>حلويات</span></button>
+<button data-section="juice"><i class="fa-solid fa-lemon"></i><span>عصائر</span></button>
+<button data-section="special"><i class="fa-solid fa-star"></i><span>سبيشل كوفي</span></button>
 </nav>
 
 <main id="menu"></main>
 
-<div id="empty" class="empty hidden">لا توجد منتجات مطابقة للبحث</div>
+<div id="empty" class="empty hidden">
+<i class="fa-solid fa-magnifying-glass"></i>
+<div>لا توجد منتجات مطابقة للبحث</div>
+</div>
 
 <div class="modal" id="modal">
 <div class="modal-box">
 <button class="close" id="closeModal">×</button>
-<img id="modalImage" loading="lazy" alt="">
+<div class="gallery">
+<img id="mainImage" loading="lazy" alt="">
+<div class="thumbs" id="thumbs"></div>
+</div>
 <h2 id="modalTitle"></h2>
 <p id="modalDesc"></p>
 <div class="modal-price" id="modalPrice"></div>
@@ -398,6 +125,10 @@ font-size:15px;
 <i class="fa-brands fa-whatsapp"></i>
 واتساب
 </a>
+
+<footer class="footer">
+© Bean House Coffee — Digital Menu Demo
+</footer>
 
 <script>
 const sections=[
@@ -410,124 +141,94 @@ const sections=[
 
 const products=[
 {
-id:1,
-section:"hot",
-name:"كابتشينو",
-desc:"قهوة إيطالية مع رغوة حليب ناعمة",
-image:"https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600",
-sizes:[
-{name:"صغير",price:"3,000 د.ع"},
-{name:"وسط",price:"4,000 د.ع"},
-{name:"كبير",price:"5,000 د.ع"}
-]
+id:1,section:"hot",name:"كابتشينو",desc:"قهوة إيطالية مع رغوة حليب ناعمة",
+images:[
+"https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=900&q=80",
+"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80",
+"https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=900&q=80"
+],
+sizes:[{name:"صغير",price:"3,000 د.ع"},{name:"وسط",price:"4,000 د.ع"},{name:"كبير",price:"5,000 د.ع"}]
 },
 {
-id:2,
-section:"hot",
-name:"هوت شوكليت",
-desc:"شوكولاتة ساخنة غنية وكريمية",
-image:"https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=600",
-sizes:[
-{name:"صغير",price:"3,500 د.ع"},
-{name:"وسط",price:"4,500 د.ع"},
-{name:"كبير",price:"5,500 د.ع"}
-]
+id:2,section:"hot",name:"هوت شوكليت",desc:"شوكولاتة ساخنة غنية وكريمية",
+images:[
+"https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=900&q=80",
+"https://images.unsplash.com/photo-1607196707151-2db8b71294ba?w=900&q=80",
+"https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=900&q=80"
+],
+sizes:[{name:"صغير",price:"3,500 د.ع"},{name:"وسط",price:"4,500 د.ع"},{name:"كبير",price:"5,500 د.ع"}]
 },
 {
-id:3,
-section:"cold",
-name:"آيس لاتيه",
-desc:"اسبريسو بارد مع حليب وثلج",
-image:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600",
-sizes:[
-{name:"صغير",price:"4,000 د.ع"},
-{name:"وسط",price:"5,000 د.ع"},
-{name:"كبير",price:"6,000 د.ع"}
-]
+id:3,section:"cold",name:"آيس لاتيه",desc:"اسبريسو بارد مع حليب وثلج",
+images:[
+"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=900&q=80",
+"https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=900&q=80",
+"https://images.unsplash.com/photo-1517959105821-eaf2591984ca?w=900&q=80"
+],
+sizes:[{name:"صغير",price:"4,000 د.ع"},{name:"وسط",price:"5,000 د.ع"},{name:"كبير",price:"6,000 د.ع"}]
 },
 {
-id:4,
-section:"cold",
-name:"آيس أمريكانو",
-desc:"قهوة سوداء باردة بطعم قوي ومنعش",
-image:"https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=600",
-sizes:[
-{name:"صغير",price:"3,000 د.ع"},
-{name:"وسط",price:"4,000 د.ع"},
-{name:"كبير",price:"5,000 د.ع"}
-]
+id:4,section:"cold",name:"آيس أمريكانو",desc:"قهوة سوداء باردة بطعم قوي ومنعش",
+images:[
+"https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=900&q=80",
+"https://images.unsplash.com/photo-1498804103079-a6351b050096?w=900&q=80",
+"https://images.unsplash.com/photo-1514995428455-447d4443fa7f?w=900&q=80"
+],
+sizes:[{name:"صغير",price:"3,000 د.ع"},{name:"وسط",price:"4,000 د.ع"},{name:"كبير",price:"5,000 د.ع"}]
 },
 {
-id:5,
-section:"dessert",
-name:"تشيز كيك",
-desc:"تشيز كيك ناعم بطبقة فاخرة",
-image:"https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=600",
-sizes:[
-{name:"قطعة",price:"5,500 د.ع"},
-{name:"قطعتين",price:"10,000 د.ع"},
-{name:"بوكس",price:"22,000 د.ع"}
-]
+id:5,section:"dessert",name:"تشيز كيك",desc:"تشيز كيك ناعم بطبقة فاخرة",
+images:[
+"https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=900&q=80",
+"https://images.unsplash.com/photo-1524351199678-941a58a3df50?w=900&q=80",
+"https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=900&q=80"
+],
+sizes:[{name:"قطعة",price:"5,500 د.ع"},{name:"قطعتين",price:"10,000 د.ع"},{name:"بوكس",price:"22,000 د.ع"}]
 },
 {
-id:6,
-section:"dessert",
-name:"براوني",
-desc:"براوني شوكولاتة غني وطري",
-image:"https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600",
-sizes:[
-{name:"قطعة",price:"4,500 د.ع"},
-{name:"قطعتين",price:"8,000 د.ع"},
-{name:"بوكس",price:"18,000 د.ع"}
-]
+id:6,section:"dessert",name:"براوني",desc:"براوني شوكولاتة غني وطري",
+images:[
+"https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=900&q=80",
+"https://images.unsplash.com/photo-1612886623532-180283ed832b?w=900&q=80",
+"https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=900&q=80"
+],
+sizes:[{name:"قطعة",price:"4,500 د.ع"},{name:"قطعتين",price:"8,000 د.ع"},{name:"بوكس",price:"18,000 د.ع"}]
 },
 {
-id:7,
-section:"juice",
-name:"عصير برتقال",
-desc:"عصير برتقال طبيعي ومنعش",
-image:"https://images.unsplash.com/photo-1613478223719-2ab802602423?w=600",
-sizes:[
-{name:"صغير",price:"3,000 د.ع"},
-{name:"وسط",price:"3,500 د.ع"},
-{name:"كبير",price:"4,500 د.ع"}
-]
+id:7,section:"juice",name:"عصير برتقال",desc:"عصير برتقال طبيعي ومنعش",
+images:[
+"https://images.unsplash.com/photo-1613478223719-2ab802602423?w=900&q=80",
+"https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=900&q=80",
+"https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=900&q=80"
+],
+sizes:[{name:"صغير",price:"3,000 د.ع"},{name:"وسط",price:"3,500 د.ع"},{name:"كبير",price:"4,500 د.ع"}]
 },
 {
-id:8,
-section:"juice",
-name:"ليمون نعناع",
-desc:"مشروب بارد بالليمون والنعناع",
-image:"https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=600",
-sizes:[
-{name:"صغير",price:"3,500 د.ع"},
-{name:"وسط",price:"4,000 د.ع"},
-{name:"كبير",price:"5,000 د.ع"}
-]
+id:8,section:"juice",name:"ليمون نعناع",desc:"مشروب بارد بالليمون والنعناع",
+images:[
+"https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=900&q=80",
+"https://images.unsplash.com/photo-1523371054106-bbf80586c38c?w=900&q=80",
+"https://images.unsplash.com/photo-1497534446932-c925b458314e?w=900&q=80"
+],
+sizes:[{name:"صغير",price:"3,500 د.ع"},{name:"وسط",price:"4,000 د.ع"},{name:"كبير",price:"5,000 د.ع"}]
 },
 {
-id:9,
-section:"special",
-name:"سبانش لاتيه",
-desc:"قهوة باردة بحليب مكثف ونكهة مميزة",
-image:"https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600",
-sizes:[
-{name:"صغير",price:"5,000 د.ع"},
-{name:"وسط",price:"6,000 د.ع"},
-{name:"كبير",price:"7,000 د.ع"}
-]
+id:9,section:"special",name:"سبانش لاتيه",desc:"قهوة باردة بحليب مكثف ونكهة مميزة",
+images:[
+"https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=900&q=80",
+"https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=900&q=80",
+"https://images.unsplash.com/photo-1534778101976-62847782c213?w=900&q=80"
+],
+sizes:[{name:"صغير",price:"5,000 د.ع"},{name:"وسط",price:"6,000 د.ع"},{name:"كبير",price:"7,000 د.ع"}]
 },
 {
-id:10,
-section:"special",
-name:"موكا كراميل",
-desc:"قهوة بالشوكولاتة والكراميل",
-image:"https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600",
-sizes:[
-{name:"صغير",price:"5,500 د.ع"},
-{name:"وسط",price:"6,500 د.ع"},
-{name:"كبير",price:"7,500 د.ع"}
-]
+id:10,section:"special",name:"موكا كراميل",desc:"قهوة بالشوكولاتة والكراميل",
+images:[
+"https://images.unsplash.com/photo-1579888944880-d98341245702?w=900&q=80",
+"https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=900&q=80",
+"https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=900&q=80"
+],
+sizes:[{name:"صغير",price:"5,500 د.ع"},{name:"وسط",price:"6,500 د.ع"},{name:"كبير",price:"7,500 د.ع"}]
 }
 ];
 
@@ -536,7 +237,8 @@ const searchInput=document.getElementById("searchInput");
 const empty=document.getElementById("empty");
 const modal=document.getElementById("modal");
 const closeModal=document.getElementById("closeModal");
-const modalImage=document.getElementById("modalImage");
+const mainImage=document.getElementById("mainImage");
+const thumbs=document.getElementById("thumbs");
 const modalTitle=document.getElementById("modalTitle");
 const modalDesc=document.getElementById("modalDesc");
 const modalPrice=document.getElementById("modalPrice");
@@ -547,15 +249,8 @@ menu.innerHTML="";
 let totalVisible=0;
 
 sections.forEach(sec=>{
-const list=products.filter(p=>{
-return p.section===sec.id && (
-p.name.toLowerCase().includes(text) ||
-p.desc.toLowerCase().includes(text)
-);
-});
-
+const list=products.filter(p=>p.section===sec.id&&(p.name.toLowerCase().includes(text)||p.desc.toLowerCase().includes(text)));
 if(list.length===0)return;
-
 totalVisible+=list.length;
 
 const section=document.createElement("section");
@@ -567,26 +262,24 @@ section.innerHTML=`
 <div class="grid">
 ${list.map(p=>`
 <div class="card" onclick="openProduct(${p.id})">
-<img src="${p.image}" loading="lazy" alt="${p.name}">
+<div class="card-image-wrap">
+<img src="${p.images[0]}" loading="lazy" alt="${p.name}">
+<div class="gallery-badge"><i class="fa-solid fa-images"></i>${p.images.length}</div>
+</div>
 <div class="card-body">
 <h3>${p.name}</h3>
 <p>${p.desc}</p>
 <div class="price" id="card-price-${p.id}">${p.sizes[1].price}</div>
-
 <div class="sizes" onclick="event.stopPropagation()">
 ${p.sizes.map((s,i)=>`
-<button class="size-btn ${i===1?'active':''}" onclick="changeCardSize(${p.id},${i},this)">
-${s.name}
-</button>
+<button class="size-btn ${i===1?'active':''}" onclick="changeCardSize(${p.id},${i},this)">${s.name}</button>
 `).join("")}
 </div>
-
 </div>
 </div>
 `).join("")}
 </div>
 `;
-
 menu.appendChild(section);
 });
 
@@ -602,27 +295,33 @@ btn.classList.add("active");
 
 function openProduct(id){
 const product=products.find(p=>p.id===id);
-
-modalImage.src=product.image;
-modalImage.alt=product.name;
+mainImage.src=product.images[0];
+mainImage.alt=product.name;
 modalTitle.textContent=product.name;
 modalDesc.textContent=product.desc;
 modalPrice.textContent=product.sizes[1].price;
+
+thumbs.innerHTML=product.images.map((img,i)=>`
+<img src="${img}" loading="lazy" class="${i===0?'active':''}" alt="${product.name} ${i+1}" onclick="changeImage('${img}',this)">
+`).join("");
 
 const oldSizes=document.querySelector(".modal-sizes");
 if(oldSizes)oldSizes.remove();
 
 const sizeBox=document.createElement("div");
 sizeBox.className="sizes modal-sizes";
-
 sizeBox.innerHTML=product.sizes.map((s,i)=>`
-<button class="size-btn ${i===1?'active':''}" onclick="changeModalSize('${s.price}',this)">
-${s.name}
-</button>
+<button class="size-btn ${i===1?'active':''}" onclick="changeModalSize('${s.price}',this)">${s.name}</button>
 `).join("");
 
 modalDesc.after(sizeBox);
 modal.classList.add("show");
+}
+
+function changeImage(img,element){
+mainImage.src=img;
+thumbs.querySelectorAll("img").forEach(t=>t.classList.remove("active"));
+element.classList.add("active");
 }
 
 function changeModalSize(price,btn){
@@ -631,39 +330,23 @@ btn.parentElement.querySelectorAll(".size-btn").forEach(b=>b.classList.remove("a
 btn.classList.add("active");
 }
 
-closeModal.onclick=()=>{
-modal.classList.remove("show");
-};
-
-modal.onclick=e=>{
-if(e.target===modal){
-modal.classList.remove("show");
-}
-};
+closeModal.onclick=()=>modal.classList.remove("show");
+modal.onclick=e=>{if(e.target===modal)modal.classList.remove("show")};
 
 document.querySelectorAll("[data-section]").forEach(btn=>{
 btn.onclick=()=>{
 document.querySelectorAll("[data-section]").forEach(b=>b.classList.remove("active"));
 btn.classList.add("active");
-
 if(btn.dataset.section==="all"){
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
+window.scrollTo({top:0,behavior:"smooth"});
 }else{
-document.getElementById(btn.dataset.section)?.scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
+document.getElementById(btn.dataset.section)?.scrollIntoView({behavior:"smooth",block:"start"});
 }
 };
 });
 
 searchInput.oninput=render;
-
 render();
 </script>
-
 </body>
 </html>
